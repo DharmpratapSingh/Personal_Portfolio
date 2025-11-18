@@ -185,48 +185,19 @@ document.querySelectorAll('.hero, .section-header, .about-content').forEach(el =
 });
 
 // ===============================================
-// Contact Form Handling
+// Smooth Email Link Animation
 // ===============================================
-const contactForm = document.querySelector('.contact-form');
+const contactLinks = document.querySelectorAll('.contact-link');
 
-if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-
-        const formData = new FormData(contactForm);
-        const data = Object.fromEntries(formData);
-
-        // Log form data (in production, send to backend)
-        console.log('Form submitted:', data);
-
-        // Show success message
-        const successMessage = document.createElement('div');
-        successMessage.style.cssText = `
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: var(--accent);
-            color: var(--bg-primary);
-            padding: 1.5rem 2rem;
-            border-radius: 8px;
-            font-weight: 600;
-            z-index: 1000;
-            animation: fadeIn 0.3s ease;
-        `;
-        successMessage.textContent = 'Thank you for your message! I\'ll get back to you soon.';
-        document.body.appendChild(successMessage);
-
-        // Remove message after 3 seconds
+contactLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+        // Add a subtle click animation
+        link.style.transform = 'scale(0.95)';
         setTimeout(() => {
-            successMessage.style.opacity = '0';
-            setTimeout(() => successMessage.remove(), 300);
-        }, 3000);
-
-        // Reset form
-        contactForm.reset();
+            link.style.transform = 'scale(1)';
+        }, 100);
     });
-}
+});
 
 // ===============================================
 // Parallax Effect for Hero Section
