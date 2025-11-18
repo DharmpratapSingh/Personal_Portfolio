@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dharmpratap Singh Vaghela - Portfolio showcasing projects and creative work">
+    <title>The Vault | Dharmpratap Singh Vaghela</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <h2>DSV</h2>
+                <span class="subtitle">Portfolio</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="#home" class="nav-item active">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M3 7L10 2L17 7V17C17 17.5304 16.7893 18.0391 16.4142 18.4142C16.0391 18.7893 15.5304 19 15 19H5C4.46957 19 3.96086 18.7893 3.58579 18.4142C3.21071 18.0391 3 17.5304 3 17V7Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>The Vault</span>
+            </a>
+
+            <div class="nav-section">
+                <span class="nav-section-title">Categories</span>
+                <a href="#projects" class="nav-item">
+                    <span class="nav-number">01</span>
+                    <span>Featured Projects</span>
+                </a>
+                <a href="#interactive" class="nav-item">
+                    <span class="nav-number">02</span>
+                    <span>Interactive Demos</span>
+                </a>
+                <a href="#skills" class="nav-item">
+                    <span class="nav-number">03</span>
+                    <span>Skills & Tech</span>
+                </a>
+                <a href="#about" class="nav-item">
+                    <span class="nav-number">04</span>
+                    <span>About Me</span>
+                </a>
+                <a href="#contact" class="nav-item">
+                    <span class="nav-number">05</span>
+                    <span>Get in Touch</span>
+                </a>
+            </div>
+        </nav>
+
+        <div class="sidebar-footer">
+            <button class="theme-toggle" aria-label="Toggle theme">
+                <svg class="sun-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <circle cx="10" cy="10" r="5" stroke="currentColor" stroke-width="2"/>
+                    <line x1="10" y1="1" x2="10" y2="3" stroke="currentColor" stroke-width="2"/>
+                    <line x1="10" y1="17" x2="10" y2="19" stroke="currentColor" stroke-width="2"/>
+                    <line x1="1" y1="10" x2="3" y2="10" stroke="currentColor" stroke-width="2"/>
+                    <line x1="17" y1="10" x2="19" y2="10" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                <svg class="moon-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C10.3 3 10.6 3.02 10.9 3.06C9.5 4.5 8.7 6.5 8.7 8.7C8.7 13 12 16.3 16.3 16.3C16.5 16.3 16.7 16.3 16.9 16.3C16.3 17.7 14.8 19 13 19.5" stroke="currentColor" stroke-width="2"/>
+                </svg>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Mobile Menu Button -->
+    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="header-title">
+                    <h1>With <span class="hypnotic-text">Hypnotic</span> Code</h1>
+                </div>
+                <div class="header-actions">
+                    <a href="#contact" class="btn btn-outline">Contact</a>
+                    <a href="#about" class="btn btn-primary">About Me</a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <h2 class="hero-title">Welcome to <span class="gradient-text">The Vault</span></h2>
+                <p class="hero-subtitle">A curated collection of creative projects, interactive experiences, and technical experiments.</p>
+            </div>
+        </section>
+
+        <!-- Projects Grid -->
+        <section class="vault-section" id="projects">
+            <div class="vault-grid">
+                <!-- Project Card 1 -->
+                <div class="vault-card" data-category="Web App">
+                    <div class="vault-card-preview">
+                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&h=400&fit=crop" alt="E-Commerce Platform">
+                        <div class="vault-card-overlay">
+                            <button class="play-btn">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                                    <path d="M8 5v14l11-7z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="vault-card-content">
+                        <h3 class="vault-card-title">E-Commerce Platform</h3>
+                        <div class="vault-card-meta">
+                            <span class="card-tag">React</span>
+                            <span class="card-tag">Node.js</span>
+                            <span class="card-tag">MongoDB</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 2 -->
+                <div class="vault-card" data-category="Animation">
+                    <div class="vault-card-preview">
+                        <div class="preview-animation magnetic-cursor-demo">
+                            <div class="demo-cursor"></div>
+                            <p>Hover anywhere</p>
+                        </div>
+                    </div>
+                    <div class="vault-card-content">
+                        <h3 class="vault-card-title">Magnetic Cursor Effect</h3>
+                        <div class="vault-card-meta">
+                            <span class="card-tag">JavaScript</span>
+                            <span class="card-tag">CSS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 3 -->
+                <div class="vault-card" data-category="Mobile App">
+                    <div class="vault-card-preview">
+                        <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=600&h=400&fit=crop" alt="Task Manager">
+                        <div class="vault-card-overlay">
+                            <button class="play-btn">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                                    <path d="M8 5v14l11-7z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="vault-card-content">
+                        <h3 class="vault-card-title">Task Manager App</h3>
+                        <div class="vault-card-meta">
+                            <span class="card-tag">React Native</span>
+                            <span class="card-tag">Firebase</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 4 -->
+                <div class="vault-card" data-category="Animation">
+                    <div class="vault-card-preview">
+                        <div class="preview-animation loader-demo">
+                            <div class="spinner"></div>
+                        </div>
+                    </div>
+                    <div class="vault-card-content">
+                        <h3 class="vault-card-title">Logo Reveal Loader</h3>
+                        <div class="vault-card-meta">
+                            <span class="card-tag">CSS Animations</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 5 -->
+                <div class="vault-card" data-category="API">
+                    <div class="vault-card-preview">
+                        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&h=400&fit=crop" alt="REST API">
+                        <div class="vault-card-overlay">
+                            <button class="play-btn">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                                    <path d="M8 5v14l11-7z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="vault-card-content">
+                        <h3 class="vault-card-title">RESTful API Service</h3>
+                        <div class="vault-card-meta">
+                            <span class="card-tag">TypeScript</span>
+                            <span class="card-tag">Express</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 6 -->
+                <div class="vault-card" data-category="3D">
+                    <div class="vault-card-preview">
+                        <div class="preview-animation globe-demo">
+                            <div class="globe"></div>
+                        </div>
+                    </div>
+                    <div class="vault-card-content">
+                        <h3 class="vault-card-title">Accelerating Globe</h3>
+                        <div class="vault-card-meta">
+                            <span class="card-tag">Three.js</span>
+                            <span class="card-tag">WebGL</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section class="skills-section" id="skills">
+            <div class="section-header">
+                <h2 class="section-title">Skills & Technologies</h2>
+                <p class="section-subtitle">Tools and languages I work with</p>
+            </div>
+
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3 class="skill-category-title">Frontend</h3>
+                    <div class="skill-list">
+                        <span class="skill-item">HTML/CSS</span>
+                        <span class="skill-item">JavaScript</span>
+                        <span class="skill-item">React</span>
+                        <span class="skill-item">Vue.js</span>
+                        <span class="skill-item">TypeScript</span>
+                        <span class="skill-item">Tailwind CSS</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3 class="skill-category-title">Backend</h3>
+                    <div class="skill-list">
+                        <span class="skill-item">Node.js</span>
+                        <span class="skill-item">Python</span>
+                        <span class="skill-item">Express</span>
+                        <span class="skill-item">Django</span>
+                        <span class="skill-item">REST APIs</span>
+                        <span class="skill-item">GraphQL</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3 class="skill-category-title">Database & Tools</h3>
+                    <div class="skill-list">
+                        <span class="skill-item">MongoDB</span>
+                        <span class="skill-item">PostgreSQL</span>
+                        <span class="skill-item">Git</span>
+                        <span class="skill-item">Docker</span>
+                        <span class="skill-item">AWS</span>
+                        <span class="skill-item">Redis</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="about-section" id="about">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2 class="section-title">About Me</h2>
+                    <p class="about-description">
+                        I'm Dharmpratap Singh Vaghela, a passionate developer with a love for creating beautiful, functional web experiences. With expertise in both frontend and backend development, I enjoy tackling challenging problems and learning new technologies.
+                    </p>
+                    <p class="about-description">
+                        When I'm not coding, you can find me exploring new technologies, contributing to open source, or sharing knowledge with the developer community.
+                    </p>
+                    <div class="about-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">5+</span>
+                            <span class="stat-label">Years Experience</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">50+</span>
+                            <span class="stat-label">Projects Completed</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">100%</span>
+                            <span class="stat-label">Client Satisfaction</span>
+                        </div>
+                    </div>
+                    <a href="assets/resume.pdf" class="btn btn-primary" download>Download Resume</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section" id="contact">
+            <div class="section-header">
+                <h2 class="section-title">Get in Touch</h2>
+                <p class="section-subtitle">Let's build something amazing together</p>
+            </div>
+
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <h3>Email</h3>
+                        <a href="mailto:your.email@example.com">your.email@example.com</a>
+                    </div>
+                    <div class="contact-item">
+                        <h3>Social</h3>
+                        <div class="social-links">
+                            <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-link">
+                                <span>GitHub</span>
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+                                </svg>
+                            </a>
+                            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-link">
+                                <span>LinkedIn</span>
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                    <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/>
+                                </svg>
+                            </a>
+                            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="social-link">
+                                <span>Twitter</span>
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                    <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <form class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2024 Dharmpratap Singh Vaghela. All rights reserved.</p>
+        </footer>
+    </main>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
