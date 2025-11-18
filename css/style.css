@@ -546,6 +546,13 @@ button {
     margin-bottom: var(--spacing-sm);
 }
 
+.vault-card-description {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: var(--spacing-md);
+}
+
 .vault-card-meta {
     display: flex;
     flex-wrap: wrap;
@@ -711,6 +718,10 @@ button {
 .contact-item h3 {
     font-size: 1.125rem;
     margin-bottom: var(--spacing-sm);
+}
+
+.contact-item p {
+    color: var(--text-secondary);
 }
 
 .contact-item a {
