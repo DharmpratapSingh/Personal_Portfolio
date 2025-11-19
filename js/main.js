@@ -17,19 +17,19 @@
 window.addEventListener('load', () => {
     const loaderWrapper = document.getElementById('loaderWrapper');
 
-    // Start opening animation after a brief delay
+    // Start opening animation after a brief delay (faster)
     setTimeout(() => {
         loaderWrapper.classList.add('opening');
-    }, 500);
+    }, 300);
 
-    // Hide loader after animation completes
+    // Hide loader after animation completes (much faster)
     setTimeout(() => {
         loaderWrapper.classList.add('hidden');
         // Remove from DOM after transition
         setTimeout(() => {
             loaderWrapper.remove();
-        }, 600);
-    }, 2500);
+        }, 400);
+    }, 1200); // Reduced from 2500ms to 1200ms
 });
 
 // ===============================================
@@ -390,36 +390,10 @@ document.addEventListener('keydown', (e) => {
 });
 
 // ===============================================
-// Enhanced Vault Card 3D Tilt Effect (Optimized)
+// Vault Card Simple Hover (Clean & Fast)
 // ===============================================
-if (!prefersReducedMotion) {
-    vaultCards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-
-            // Enhanced tilt calculation for more dramatic effect
-            const rotateX = (y - centerY) / 15;
-            const rotateY = (centerX - x) / 15;
-
-            // Add subtle depth translation
-            const translateZ = 10;
-
-            // Use translate3d for GPU acceleration
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translate3d(0, -8px, ${translateZ}px)`;
-            card.style.transition = 'box-shadow 0.2s ease, border-color 0.2s ease';
-        });
-
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = '';
-            card.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
-        });
-    });
-}
+// Removed complex 3D tilt for cleaner, Osmo-inspired design
+// Cards now use simple translateY lift in CSS :hover
 
 // ===============================================
 // Performance: Lazy Load Images
