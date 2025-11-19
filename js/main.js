@@ -3,6 +3,78 @@
 // ===============================================
 
 // ===============================================
+// Logo Reveal Loader
+// ===============================================
+window.addEventListener('load', () => {
+    const loaderWrapper = document.getElementById('loaderWrapper');
+
+    // Start opening animation after a brief delay
+    setTimeout(() => {
+        loaderWrapper.classList.add('opening');
+    }, 500);
+
+    // Hide loader after animation completes
+    setTimeout(() => {
+        loaderWrapper.classList.add('hidden');
+        // Remove from DOM after transition
+        setTimeout(() => {
+            loaderWrapper.remove();
+        }, 600);
+    }, 2500);
+});
+
+// ===============================================
+// Magnetic Cursor
+// ===============================================
+const cursorDot = document.getElementById('cursorDot');
+const cursorOutline = document.getElementById('cursorOutline');
+
+let mouseX = 0;
+let mouseY = 0;
+let outlineX = 0;
+let outlineY = 0;
+
+// Track mouse position
+document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+
+    // Update dot position immediately
+    if (cursorDot) {
+        cursorDot.style.transform = `translate(${mouseX - 4}px, ${mouseY - 4}px)`;
+    }
+});
+
+// Smooth follow animation for outline
+function animateCursorOutline() {
+    // Smooth interpolation
+    outlineX += (mouseX - outlineX) * 0.15;
+    outlineY += (mouseY - outlineY) * 0.15;
+
+    if (cursorOutline) {
+        cursorOutline.style.transform = `translate(${outlineX - 20}px, ${outlineY - 20}px)`;
+    }
+
+    requestAnimationFrame(animateCursorOutline);
+}
+
+animateCursorOutline();
+
+// Add hover effect for interactive elements
+const hoverElements = document.querySelectorAll('a, button, .vault-card, .skill-item, .contact-card');
+hoverElements.forEach(el => {
+    el.addEventListener('mouseenter', () => {
+        cursorDot?.classList.add('hover');
+        cursorOutline?.classList.add('hover');
+    });
+
+    el.addEventListener('mouseleave', () => {
+        cursorDot?.classList.remove('hover');
+        cursorOutline?.classList.remove('hover');
+    });
+});
+
+// ===============================================
 // Theme Toggle
 // ===============================================
 const themeToggle = document.querySelector('.theme-toggle');
@@ -226,15 +298,44 @@ if (footer) {
 }
 
 // ===============================================
-// Page Load Animation
+// Enhanced Page Transitions
 // ===============================================
-window.addEventListener('load', () => {
-    document.body.style.opacity = '0';
-    setTimeout(() => {
-        document.body.style.transition = 'opacity 0.5s ease';
-        document.body.style.opacity = '1';
-    }, 100);
+const transitionElements = document.querySelectorAll('.vault-section, .skills-section, .about-section, .contact-section');
+
+const transitionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('section-transition', 'visible');
+        }
+    });
+}, {
+    threshold: 0.1,
+    rootMargin: '0px 0px -100px 0px'
 });
+
+transitionElements.forEach(el => {
+    el.classList.add('section-transition');
+    transitionObserver.observe(el);
+});
+
+// ===============================================
+// Footer Parallax Effect
+// ===============================================
+const footer = document.querySelector('.footer');
+
+const footerObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            footer.classList.add('in-view');
+        }
+    });
+}, {
+    threshold: 0.3
+});
+
+if (footer) {
+    footerObserver.observe(footer);
+}
 
 // ===============================================
 // Keyboard Navigation
@@ -256,7 +357,7 @@ document.addEventListener('keydown', (e) => {
 });
 
 // ===============================================
-// Vault Card Hover Effect (3D Tilt)
+// Enhanced Vault Card 3D Tilt Effect
 // ===============================================
 vaultCards.forEach(card => {
     card.addEventListener('mousemove', (e) => {
@@ -267,14 +368,20 @@ vaultCards.forEach(card => {
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
 
-        const rotateX = (y - centerY) / 20;
-        const rotateY = (centerX - x) / 20;
+        // Enhanced tilt calculation for more dramatic effect
+        const rotateX = (y - centerY) / 15;
+        const rotateY = (centerX - x) / 15;
 
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+        // Add subtle depth translation
+        const translateZ = 10;
+
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(${translateZ}px) translateY(-8px)`;
+        card.style.transition = 'box-shadow 0.2s ease, border-color 0.2s ease';
     });
 
     card.addEventListener('mouseleave', () => {
         card.style.transform = '';
+        card.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
     });
 });
 

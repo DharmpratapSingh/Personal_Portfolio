@@ -8,6 +8,22 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <!-- Logo Reveal Loader -->
+    <div class="loader-wrapper" id="loaderWrapper">
+        <div class="vault-door-container">
+            <div class="vault-door vault-door-left"></div>
+            <div class="vault-door vault-door-right"></div>
+            <div class="vault-logo">
+                <h1>DSV</h1>
+                <p>The Vault</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Magnetic Cursor -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-outline" id="cursorOutline"></div>
+
     <!-- Sidebar Navigation -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
@@ -75,7 +91,7 @@
         <header class="header">
             <div class="header-content">
                 <div class="header-title">
-                    <h1>With <span class="hypnotic-text">Hypnotic</span> Code</h1>
+                    <h1>Dharmpratap Singh Vaghela</h1>
                 </div>
                 <div class="header-actions">
                     <a href="#contact" class="btn btn-outline">Contact</a>
@@ -88,7 +104,7 @@
         <section class="hero" id="home">
             <div class="hero-content">
                 <h2 class="hero-title">Welcome to <span class="gradient-text">The Vault</span></h2>
-                <p class="hero-subtitle">MS Data Analytics Engineering @ GMU | Quantitative Finance & ML | Building predictive models for financial markets, risk assessment, and data-driven decision systems.</p>
+                <p class="hero-subtitle">I build machine learning systems for financial markets, quantitative analysis, and data-driven decision making. Currently pursuing MS in Data Analytics Engineering at George Mason University.</p>
             </div>
         </section>
 
@@ -109,7 +125,7 @@
                     </div>
                     <div class="vault-card-content">
                         <h3 class="vault-card-title">IntegrityX - ChallengeX Winner 🏆</h3>
-                        <p class="vault-card-description">Built financial document verification system addressing $42B annual mortgage fraud problem. Implemented SHA-256 cryptographic hashing with blockchain provenance tracking achieving 35ms API response times and 87.5% test coverage. Won 1st place addressing regulatory compliance for banks and fintechs.</p>
+                        <p class="vault-card-description">Blockchain-based fraud detection for financial documents. Won ChallengeX 1st place with 35ms API response and 87.5% test coverage.</p>
                         <div class="vault-card-meta">
                             <span class="card-tag">Python</span>
                             <span class="card-tag">Blockchain</span>
@@ -133,7 +149,7 @@
                     </div>
                     <div class="vault-card-content">
                         <h3 class="vault-card-title">Reddit Sentiment Dashboard</h3>
-                        <p class="vault-card-description">Real-time sentiment analysis dashboard processing Reddit posts through 4 BERT-based models (Cardiff, DistilBERT, NLPTown, BERTweet). Built interactive temporal trend analysis, emotion radar charts, and comparative model visualizations for social media intelligence gathering.</p>
+                        <p class="vault-card-description">Real-time sentiment analysis using 4 BERT models (Cardiff, DistilBERT, NLPTown, BERTweet) with interactive visualizations and emotion radar charts.</p>
                         <div class="vault-card-meta">
                             <span class="card-tag">Python</span>
                             <span class="card-tag">BERT/Transformers</span>
@@ -157,7 +173,7 @@
                     </div>
                     <div class="vault-card-content">
                         <h3 class="vault-card-title">NVIDIA Stock Price Prediction</h3>
-                        <p class="vault-card-description">Developed ensemble ML models (Random Forest, XGBoost, Linear Regression) for NVIDIA stock forecasting. Engineered features from daily returns, 50/200-day moving averages, and volatility indicators. Compared model performance metrics (RMSE, MAE, R²) to identify optimal prediction approach.</p>
+                        <p class="vault-card-description">Ensemble ML models for NVIDIA stock forecasting using Random Forest, XGBoost, and Linear Regression with technical indicators and moving averages.</p>
                         <div class="vault-card-meta">
                             <span class="card-tag">Python</span>
                             <span class="card-tag">Scikit-learn</span>
@@ -181,7 +197,7 @@
                     </div>
                     <div class="vault-card-content">
                         <h3 class="vault-card-title">EDGAR Carbon Emissions MCP Server</h3>
-                        <p class="vault-card-description">Built Model Context Protocol (MCP) server integrating SEC EDGAR database of corporate carbon emissions with LLMs. Automated data extraction, standardization, and API serving enabling AI-powered ESG analysis and environmental risk assessment queries.</p>
+                        <p class="vault-card-description">MCP server connecting SEC EDGAR carbon emissions data with LLMs for AI-powered ESG analysis and environmental risk assessment.</p>
                         <div class="vault-card-meta">
                             <span class="card-tag">Python</span>
                             <span class="card-tag">MCP Protocol</span>
@@ -205,7 +221,7 @@
                     </div>
                     <div class="vault-card-content">
                         <h3 class="vault-card-title">Loan Default Prediction Model</h3>
-                        <p class="vault-card-description">Built credit risk models comparing Logistic Regression, Random Forest, XGBoost, and Neural Networks for loan default prediction. Analyzed feature importance, performed hyperparameter tuning, and evaluated models using precision-recall curves and AUC-ROC metrics for bank lending decisions.</p>
+                        <p class="vault-card-description">Credit risk models comparing Logistic Regression, Random Forest, XGBoost, and Neural Networks evaluated with precision-recall and AUC-ROC metrics.</p>
                         <div class="vault-card-meta">
                             <span class="card-tag">Credit Risk</span>
                             <span class="card-tag">XGBoost</span>
@@ -229,7 +245,7 @@
                     </div>
                     <div class="vault-card-content">
                         <h3 class="vault-card-title">Hepatitis C Biomarker Analysis</h3>
-                        <p class="vault-card-description">Conducted statistical analysis of liver enzyme biomarkers (ALP, ALT, AST) across hepatitis C patient cohorts. Built interactive D3.js visualizations to identify correlations between enzyme levels, age, and gender. Performed hypothesis testing and regression analysis on clinical dataset.</p>
+                        <p class="vault-card-description">Statistical analysis of liver enzyme biomarkers (ALP, ALT, AST) with interactive D3.js visualizations and hypothesis testing on clinical data.</p>
                         <div class="vault-card-meta">
                             <span class="card-tag">Statistical Analysis</span>
                             <span class="card-tag">D3.js</span>
@@ -311,13 +327,13 @@
                 <div class="about-text">
                     <h2 class="section-title">About Me</h2>
                     <p class="about-description">
-                        I'm Dharmpratap (Dharm) Vaghela, and I thrive at the intersection of data, finance, and technology. I transform raw numbers into actionable insights that drive smarter decision-making. Whether building predictive models for stock prices, optimizing trading strategies, or extracting meaning from complex datasets, I love solving problems that require both analytical precision and creative thinking.
+                        I'm Dharmpratap (Dharm) Vaghela, a data scientist specializing in machine learning and quantitative finance. I build predictive models for financial markets and create systems that turn complex data into actionable insights.
                     </p>
                     <p class="about-description">
-                        With a strong foundation in quantitative research, machine learning, and statistical modeling, I specialize in uncovering trends and patterns hidden in data. My expertise spans Python, R, MATLAB, SQL, and financial modeling, enabling me to develop systematic trading strategies, asset pricing models, and risk optimization frameworks.
+                        Currently pursuing my MS in Data Analytics Engineering at George Mason University, I work with Python, machine learning frameworks, and statistical analysis to solve problems in finance, blockchain, and NLP. I won ChallengeX for building IntegrityX, a blockchain-based fraud detection system for financial documents.
                     </p>
                     <p class="about-description">
-                        Currently pursuing my Master's in Data Analytics Engineering at George Mason University, I continue refining my skills in quantitative finance, algorithmic trading, and investment analytics. My passion lies in leveraging data-driven strategies to enhance financial decision-making and building models that make markets more efficient.
+                        I'm looking for quantitative finance roles and data science opportunities where I can apply ML to real-world financial problems. When I'm not coding, I'm researching algorithmic trading strategies and exploring new developments in AI.
                     </p>
                     <div class="about-stats">
                         <div class="stat-item">
