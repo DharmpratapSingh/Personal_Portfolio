@@ -146,7 +146,6 @@ button {
     flex-direction: column;
     z-index: 100;
     transition: transform var(--transition-base);
-    position: relative;
 }
 
 .sidebar::before {
