@@ -1,6 +1,15 @@
 // ===============================================
 // The Vault Portfolio - Main JavaScript
 // ===============================================
+// Performance Optimizations Applied:
+// - translate3d() for GPU acceleration
+// - will-change for rendering hints
+// - Passive event listeners for scroll
+// - IntersectionObserver with unobserve after animation
+// - RequestAnimationFrame throttling for scroll events
+// - Linear interpolation (lerp) for smooth cursor movement
+// - Respect prefers-reduced-motion for accessibility
+// ===============================================
 
 // ===============================================
 // Logo Reveal Loader
@@ -24,55 +33,63 @@ window.addEventListener('load', () => {
 });
 
 // ===============================================
-// Magnetic Cursor
+// Magnetic Cursor (Optimized)
 // ===============================================
-const cursorDot = document.getElementById('cursorDot');
-const cursorOutline = document.getElementById('cursorOutline');
+// Check for reduced motion preference
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-let mouseX = 0;
-let mouseY = 0;
-let outlineX = 0;
-let outlineY = 0;
+if (!prefersReducedMotion) {
+    const cursorDot = document.getElementById('cursorDot');
+    const cursorOutline = document.getElementById('cursorOutline');
 
-// Track mouse position
-document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
+    let mouseX = 0;
+    let mouseY = 0;
+    let outlineX = 0;
+    let outlineY = 0;
 
-    // Update dot position immediately
-    if (cursorDot) {
-        cursorDot.style.transform = `translate(${mouseX - 4}px, ${mouseY - 4}px)`;
+    // Linear interpolation for smoother animation
+    const lerp = (start, end, factor) => start + (end - start) * factor;
+
+    // Track mouse position
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+
+        // Update dot position immediately
+        if (cursorDot) {
+            cursorDot.style.transform = `translate3d(${mouseX - 4}px, ${mouseY - 4}px, 0)`; // Use translate3d for GPU
+        }
+    });
+
+    // Smooth follow animation for outline with optimized lerp
+    function animateCursorOutline() {
+        // Smooth interpolation with optimized easing
+        outlineX = lerp(outlineX, mouseX, 0.15);
+        outlineY = lerp(outlineY, mouseY, 0.15);
+
+        if (cursorOutline) {
+            cursorOutline.style.transform = `translate3d(${outlineX - 20}px, ${outlineY - 20}px, 0)`; // Use translate3d for GPU
+        }
+
+        requestAnimationFrame(animateCursorOutline);
     }
-});
 
-// Smooth follow animation for outline
-function animateCursorOutline() {
-    // Smooth interpolation
-    outlineX += (mouseX - outlineX) * 0.15;
-    outlineY += (mouseY - outlineY) * 0.15;
+    animateCursorOutline();
 
-    if (cursorOutline) {
-        cursorOutline.style.transform = `translate(${outlineX - 20}px, ${outlineY - 20}px)`;
-    }
+    // Add hover effect for interactive elements
+    const hoverElements = document.querySelectorAll('a, button, .vault-card, .skill-item, .contact-card');
+    hoverElements.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            cursorDot?.classList.add('hover');
+            cursorOutline?.classList.add('hover');
+        });
 
-    requestAnimationFrame(animateCursorOutline);
+        el.addEventListener('mouseleave', () => {
+            cursorDot?.classList.remove('hover');
+            cursorOutline?.classList.remove('hover');
+        });
+    });
 }
-
-animateCursorOutline();
-
-// Add hover effect for interactive elements
-const hoverElements = document.querySelectorAll('a, button, .vault-card, .skill-item, .contact-card');
-hoverElements.forEach(el => {
-    el.addEventListener('mouseenter', () => {
-        cursorDot?.classList.add('hover');
-        cursorOutline?.classList.add('hover');
-    });
-
-    el.addEventListener('mouseleave', () => {
-        cursorDot?.classList.remove('hover');
-        cursorOutline?.classList.remove('hover');
-    });
-});
 
 // ===============================================
 // Theme Toggle
@@ -272,21 +289,29 @@ contactLinks.forEach(link => {
 });
 
 // ===============================================
-// Parallax Effect for Hero Section
+// Parallax Effect for Hero Section (Optimized)
 // ===============================================
-const hero = document.querySelector('.hero');
+if (!prefersReducedMotion) {
+    const hero = document.querySelector('.hero');
+    let ticking = false;
 
-window.addEventListener('scroll', () => {
-    if (hero) {
-        const scrolled = window.pageYOffset;
-        const heroHeight = hero.offsetHeight;
+    // Use passive event listener for better scroll performance
+    window.addEventListener('scroll', () => {
+        if (!ticking && hero) {
+            window.requestAnimationFrame(() => {
+                const scrolled = window.pageYOffset;
+                const heroHeight = hero.offsetHeight;
 
-        if (scrolled < heroHeight) {
-            hero.style.transform = `translateY(${scrolled * 0.5}px)`;
-            hero.style.opacity = 1 - (scrolled / heroHeight);
+                if (scrolled < heroHeight) {
+                    hero.style.transform = `translate3d(0, ${scrolled * 0.5}px, 0)`; // GPU acceleration
+                    hero.style.opacity = 1 - (scrolled / heroHeight);
+                }
+                ticking = false;
+            });
+            ticking = true;
         }
-    }
-});
+    }, { passive: true });
+}
 
 // ===============================================
 // Dynamic Year in Footer
@@ -298,43 +323,51 @@ if (footer) {
 }
 
 // ===============================================
-// Enhanced Page Transitions
+// Enhanced Page Transitions (Optimized)
 // ===============================================
-const transitionElements = document.querySelectorAll('.vault-section, .skills-section, .about-section, .contact-section');
+if (!prefersReducedMotion) {
+    const transitionElements = document.querySelectorAll('.vault-section, .skills-section, .about-section, .contact-section');
 
-const transitionObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('section-transition', 'visible');
-        }
+    const transitionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('section-transition', 'visible');
+                // Unobserve after animation to improve performance
+                transitionObserver.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
     });
-}, {
-    threshold: 0.1,
-    rootMargin: '0px 0px -100px 0px'
-});
 
-transitionElements.forEach(el => {
-    el.classList.add('section-transition');
-    transitionObserver.observe(el);
-});
-
-// ===============================================
-// Footer Parallax Effect
-// ===============================================
-const footer = document.querySelector('.footer');
-
-const footerObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            footer.classList.add('in-view');
-        }
+    transitionElements.forEach(el => {
+        el.classList.add('section-transition');
+        transitionObserver.observe(el);
     });
-}, {
-    threshold: 0.3
-});
+}
 
-if (footer) {
-    footerObserver.observe(footer);
+// ===============================================
+// Footer Parallax Effect (Optimized)
+// ===============================================
+if (!prefersReducedMotion) {
+    const footer = document.querySelector('.footer');
+
+    const footerObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                footer.classList.add('in-view');
+                // Unobserve after animation
+                footerObserver.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.3
+    });
+
+    if (footer) {
+        footerObserver.observe(footer);
+    }
 }
 
 // ===============================================
@@ -357,33 +390,36 @@ document.addEventListener('keydown', (e) => {
 });
 
 // ===============================================
-// Enhanced Vault Card 3D Tilt Effect
+// Enhanced Vault Card 3D Tilt Effect (Optimized)
 // ===============================================
-vaultCards.forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
+if (!prefersReducedMotion) {
+    vaultCards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
 
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
 
-        // Enhanced tilt calculation for more dramatic effect
-        const rotateX = (y - centerY) / 15;
-        const rotateY = (centerX - x) / 15;
+            // Enhanced tilt calculation for more dramatic effect
+            const rotateX = (y - centerY) / 15;
+            const rotateY = (centerX - x) / 15;
 
-        // Add subtle depth translation
-        const translateZ = 10;
+            // Add subtle depth translation
+            const translateZ = 10;
 
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(${translateZ}px) translateY(-8px)`;
-        card.style.transition = 'box-shadow 0.2s ease, border-color 0.2s ease';
+            // Use translate3d for GPU acceleration
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translate3d(0, -8px, ${translateZ}px)`;
+            card.style.transition = 'box-shadow 0.2s ease, border-color 0.2s ease';
+        });
+
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = '';
+            card.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+        });
     });
-
-    card.addEventListener('mouseleave', () => {
-        card.style.transform = '';
-        card.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
-    });
-});
+}
 
 // ===============================================
 // Performance: Lazy Load Images
