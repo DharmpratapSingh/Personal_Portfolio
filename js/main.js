@@ -1,6 +1,95 @@
 // ===============================================
 // The Vault Portfolio - Main JavaScript
 // ===============================================
+// Performance Optimizations Applied:
+// - translate3d() for GPU acceleration
+// - will-change for rendering hints
+// - Passive event listeners for scroll
+// - IntersectionObserver with unobserve after animation
+// - RequestAnimationFrame throttling for scroll events
+// - Linear interpolation (lerp) for smooth cursor movement
+// - Respect prefers-reduced-motion for accessibility
+// ===============================================
+
+// ===============================================
+// Logo Reveal Loader
+// ===============================================
+window.addEventListener('load', () => {
+    const loaderWrapper = document.getElementById('loaderWrapper');
+
+    // Start opening animation after a brief delay
+    setTimeout(() => {
+        loaderWrapper.classList.add('opening');
+    }, 500);
+
+    // Hide loader after animation completes
+    setTimeout(() => {
+        loaderWrapper.classList.add('hidden');
+        // Remove from DOM after transition
+        setTimeout(() => {
+            loaderWrapper.remove();
+        }, 600);
+    }, 2500);
+});
+
+// ===============================================
+// Magnetic Cursor (Optimized)
+// ===============================================
+// Check for reduced motion preference
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+if (!prefersReducedMotion) {
+    const cursorDot = document.getElementById('cursorDot');
+    const cursorOutline = document.getElementById('cursorOutline');
+
+    let mouseX = 0;
+    let mouseY = 0;
+    let outlineX = 0;
+    let outlineY = 0;
+
+    // Linear interpolation for smoother animation
+    const lerp = (start, end, factor) => start + (end - start) * factor;
+
+    // Track mouse position
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+
+        // Update dot position immediately
+        if (cursorDot) {
+            cursorDot.style.transform = `translate3d(${mouseX - 4}px, ${mouseY - 4}px, 0)`; // Use translate3d for GPU
+        }
+    });
+
+    // Smooth follow animation for outline with optimized lerp
+    function animateCursorOutline() {
+        // Smooth interpolation with optimized easing
+        outlineX = lerp(outlineX, mouseX, 0.15);
+        outlineY = lerp(outlineY, mouseY, 0.15);
+
+        if (cursorOutline) {
+            cursorOutline.style.transform = `translate3d(${outlineX - 20}px, ${outlineY - 20}px, 0)`; // Use translate3d for GPU
+        }
+
+        requestAnimationFrame(animateCursorOutline);
+    }
+
+    animateCursorOutline();
+
+    // Add hover effect for interactive elements
+    const hoverElements = document.querySelectorAll('a, button, .vault-card, .skill-item, .contact-card');
+    hoverElements.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            cursorDot?.classList.add('hover');
+            cursorOutline?.classList.add('hover');
+        });
+
+        el.addEventListener('mouseleave', () => {
+            cursorDot?.classList.remove('hover');
+            cursorOutline?.classList.remove('hover');
+        });
+    });
+}
 
 // ===============================================
 // Theme Toggle
@@ -200,21 +289,29 @@ contactLinks.forEach(link => {
 });
 
 // ===============================================
-// Parallax Effect for Hero Section
+// Parallax Effect for Hero Section (Optimized)
 // ===============================================
-const hero = document.querySelector('.hero');
+if (!prefersReducedMotion) {
+    const hero = document.querySelector('.hero');
+    let ticking = false;
 
-window.addEventListener('scroll', () => {
-    if (hero) {
-        const scrolled = window.pageYOffset;
-        const heroHeight = hero.offsetHeight;
+    // Use passive event listener for better scroll performance
+    window.addEventListener('scroll', () => {
+        if (!ticking && hero) {
+            window.requestAnimationFrame(() => {
+                const scrolled = window.pageYOffset;
+                const heroHeight = hero.offsetHeight;
 
-        if (scrolled < heroHeight) {
-            hero.style.transform = `translateY(${scrolled * 0.5}px)`;
-            hero.style.opacity = 1 - (scrolled / heroHeight);
+                if (scrolled < heroHeight) {
+                    hero.style.transform = `translate3d(0, ${scrolled * 0.5}px, 0)`; // GPU acceleration
+                    hero.style.opacity = 1 - (scrolled / heroHeight);
+                }
+                ticking = false;
+            });
+            ticking = true;
         }
-    }
-});
+    }, { passive: true });
+}
 
 // ===============================================
 // Dynamic Year in Footer
@@ -226,15 +323,52 @@ if (footer) {
 }
 
 // ===============================================
-// Page Load Animation
+// Enhanced Page Transitions (Optimized)
 // ===============================================
-window.addEventListener('load', () => {
-    document.body.style.opacity = '0';
-    setTimeout(() => {
-        document.body.style.transition = 'opacity 0.5s ease';
-        document.body.style.opacity = '1';
-    }, 100);
-});
+if (!prefersReducedMotion) {
+    const transitionElements = document.querySelectorAll('.vault-section, .skills-section, .about-section, .contact-section');
+
+    const transitionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('section-transition', 'visible');
+                // Unobserve after animation to improve performance
+                transitionObserver.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
+    });
+
+    transitionElements.forEach(el => {
+        el.classList.add('section-transition');
+        transitionObserver.observe(el);
+    });
+}
+
+// ===============================================
+// Footer Parallax Effect (Optimized)
+// ===============================================
+if (!prefersReducedMotion) {
+    const footer = document.querySelector('.footer');
+
+    const footerObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                footer.classList.add('in-view');
+                // Unobserve after animation
+                footerObserver.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.3
+    });
+
+    if (footer) {
+        footerObserver.observe(footer);
+    }
+}
 
 // ===============================================
 // Keyboard Navigation
@@ -256,27 +390,36 @@ document.addEventListener('keydown', (e) => {
 });
 
 // ===============================================
-// Vault Card Hover Effect (3D Tilt)
+// Enhanced Vault Card 3D Tilt Effect (Optimized)
 // ===============================================
-vaultCards.forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
+if (!prefersReducedMotion) {
+    vaultCards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
 
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
 
-        const rotateX = (y - centerY) / 20;
-        const rotateY = (centerX - x) / 20;
+            // Enhanced tilt calculation for more dramatic effect
+            const rotateX = (y - centerY) / 15;
+            const rotateY = (centerX - x) / 15;
 
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+            // Add subtle depth translation
+            const translateZ = 10;
+
+            // Use translate3d for GPU acceleration
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translate3d(0, -8px, ${translateZ}px)`;
+            card.style.transition = 'box-shadow 0.2s ease, border-color 0.2s ease';
+        });
+
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = '';
+            card.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+        });
     });
-
-    card.addEventListener('mouseleave', () => {
-        card.style.transform = '';
-    });
-});
+}
 
 // ===============================================
 // Performance: Lazy Load Images
